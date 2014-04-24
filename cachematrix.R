@@ -4,9 +4,9 @@
 ## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
-  m <- NULL
-  set <- function(y) {
-    x <<- y
+  m <- NULL ###setting initial value to NULL
+  set <- function(y) { ###sets the value of the matrix into another internal cached memory 
+    x <<- y ###
     m <<- NULL
   }
   get <- function() x
@@ -22,14 +22,14 @@ makeCacheMatrix <- function(x = matrix()) {
 ## Write a short comment describing this function
 
 cacheSolve <- function(x, ...) {
-  m <- x$getinv()
-  if(!is.null(m)) {
+  m <- x$getinv()###gets the value from the makeCacheMatrix in order to verify whether inverse was already calculated
+  if(!is.null(m)) { ###verification whether inverse was precalculated
     message("getting cached data")
-    return(m)
+    return(m) ###returning cached inverse
   }
-  data <- x$get()
-  m <- solve(data, ...)
-  x$setinv(m)
+  data <- x$get()###retrieves the data or original matrix from the makeCacheMatrix
+  m <- solve(data, ...) ###calculates the inverse
+  x$setinv(m)###sends the inverse to get inserted into the cache
   m
         ## Return a matrix that is the inverse of 'x'
 }
