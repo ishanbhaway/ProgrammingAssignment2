@@ -4,14 +4,14 @@
 ## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
-  m <- NULL ###setting initial value to NULL
+  inv <- NULL ###initializing a vector inv for the functions operations
   set <- function(y) { ###sets the value of the matrix into another internal cached memory 
-    x <<- y ###
-    m <<- NULL
+    x <<- y ###pulling the original data into the given function
+    inv <<- NULL###take the value of NULL if the solve has not cached any value inside
   }
   get <- function() x
-  setinv <- function(solve) m <<- solve
-  getinv <- function() m
+  setinv <- function(solve) inv <<- solve
+  getinv <- function() inv
   list(set = set, get = get,
        setinv = setinv,
        getinv = getinv)
@@ -22,10 +22,10 @@ makeCacheMatrix <- function(x = matrix()) {
 ## Write a short comment describing this function
 
 cacheSolve <- function(x, ...) {
-  m <- x$getinv()###gets the value from the makeCacheMatrix in order to verify whether inverse was already calculated
-  if(!is.null(m)) { ###verification whether inverse was precalculated
-    message("getting cached data")
-    return(m) ###returning cached inverse
+  inv <- x$getinv()###gets the value from the makeCacheMatrix in order to verify whether inverse was already calculated
+  if(!is.null(inv)) { ###verification whether inverse was precalculated
+    message("getting cached data") ###message to denote this is the cached data
+    return(inv) ###returning cached inverse
   }
   data <- x$get()###retrieves the data or original matrix from the makeCacheMatrix
   m <- solve(data, ...) ###calculates the inverse
